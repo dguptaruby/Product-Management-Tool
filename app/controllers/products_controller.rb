@@ -3,7 +3,11 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    if params[:query].present?
+      @products = Product.where("name like ?", "%#{params[:query]}%")
+    else
+      @products = Product.all
+    end
   end
 
   # GET /products/1 or /products/1.json
@@ -22,15 +26,10 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.save
+      flash.now[:notice] = "Catch successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -65,6 +64,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :upc, :available_on)
+      params.require(:product).permit(:name,:upc,:available_on, properties_attributes: [:name, :brand])
     end
 end

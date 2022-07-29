@@ -1,17 +1,8 @@
-<div id="<%= dom_id product %>">
-  <p>
-    <strong>Name:</strong>
-    <%= product.name %>
-  </p>
-
-  <p>
-    <strong>Upc:</strong>
-    <%= product.upc %>
-  </p>
-
-  <p>
-    <strong>Available on:</strong>
-    <%= product.available_on %>
-  </p>
-
+<div id="-<%= product.id %>">
+<ul class="list-group justify-content-center">
+  <li class="list-group-item">
+    <p><b>Product Name:</b><%= product.name %> </p>
+    <p><b>Product UPC:</b> <%= product.upc %></p>
+  </li>
+</ul>
 </div>

@@ -3,6 +3,9 @@
 import { application } from "controllers/application"
 
 // Eager load all controllers defined in the import map under controllers/**/*_controller
+import FlashController from "./flash_controller.js"
+application.register("flash", FlashController)
+
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
 

@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend "products" do %>
+  <%=render partial: "products/product", locals: { product: @product } %>
+<% end %>
+
+<%= turbo_stream.update "modal", "" %>
+<%= turbo_stream.update "flash", partial: "layouts/flash" %>
