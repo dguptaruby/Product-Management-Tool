@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :available_on, style: "display: block" %>
-    <%= form.datetime_field :available_on %>
+    <%= form.datetime_field :available_on ,min: Date.today%>
   </div>
 
   <div>
