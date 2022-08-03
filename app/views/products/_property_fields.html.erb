@@ -1,0 +1,11 @@
+     
+<div class="mb-3">
+  <%= f.label :name, { class: "form-label"} %>
+  <%= f.text_field :name, {name: 'product[properties_attributes][0][name]', id: 'name_id_0', class: "form-control", placeholder: "Enter Property Name" }  %>
+</div>
+
+<div class="mb-3">
+  <%= f.label :value, { class: "form-label"}  %>
+  <%= f.text_field :value,{ name: 'product[properties_attributes][0][value]', id: 'brand_id_0', class: "form-control", placeholder: "Enter Brand" }  %>
+</div>
+

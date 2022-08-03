@@ -3,6 +3,9 @@
   <li class="list-group-item">
     <p><b>Product Name:</b><%= product.name %> </p>
     <p><b>Product UPC:</b> <%= product.upc %></p>
+    <% product.properties.each do |property| %>
+       <p><b>Properties:</b>(Brand:<%= property.name %>, Color: <%=property.value %>)</p>
+    <% end %>
   </li>
 </ul>
 </div>

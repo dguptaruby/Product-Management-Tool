@@ -1,40 +1,39 @@
 <%= turbo_frame_tag "modal" do %>
 <div class="container">
-  <%= nested_form_for @product, data: { controller: "modal" } do |f| %>
-
-    <div class="card mt-2 mb-2">
-      <div class="card-body">
-      <h3>New Product</h3>
-        <div class="mb-3">
-          <%= f.label :name, { class: "form-label"} %>
-          <%= f.text_field :name, { class: "form-control", placeholder: "Enter Product Name" }  %>
-        </div>
-        
-        <div class="mb-3">
-          <%= f.label :upc, { class: "form-label"}  %>
-          <%= f.text_field :upc,{ class: "form-control", placeholder: "Enter UPC" }  %>
-        </div>
-        <div class="mb-3">
-          <%= f.label :available_on, { class: "form-label"}  %>
-          <%= f.date_field :available_on, { class: "form-control", min: Date.today} %>
-        </div>
-
-        <h3>Property</h3>
-        <%= f.fields_for :properties ,Property.new do |property_field| %>
+    <%= form_with(model: @product, data: { controller: 'model'}) do |f| %>
+      <div class="card mt-2 mb-2">
+        <div class="card-body">
+          <h3>New Product</h3>
           <div class="mb-3">
-            <%= property_field.label :name, { class: "form-label"} %>
-            <%= property_field.text_field :name, { class: "form-control", placeholder: "Enter Property Name" }  %>
+            <%= f.label :name, { class: "form-label"} %>
+            <%= f.text_field :name, { class: "form-control", placeholder: "Enter Product Name" }  %>
           </div>
           
           <div class="mb-3">
-            <%= property_field.label :brand, { class: "form-label"}  %>
-            <%= property_field.text_field :brand,{ class: "form-control", placeholder: "Enter Brand" }  %>
+            <%= f.label :upc, { class: "form-label"}  %>
+            <%= f.text_field :upc,{ class: "form-control", placeholder: "Enter UPC" }  %>
           </div>
-        <% end %>
-        <%= f.submit "Add Product",class: "btn btn-primary" %>
+          
+          <div class="mb-3">
+            <%= f.label :available_on, { class: "form-label"}  %>
+            <%= f.date_field :available_on, { class: "form-control", min: Date.today} %>
+          </div>
+
+          <div class='property-fields'>
+            <%= f.fields_for :properties, child_index: Time.now.to_i do |properties_form| %>
+                <%= render "property_fields", f: properties_form %>
+            <% end %>
+          </div>
+
+          <div>  
+          <%#= link_to_add_fields "Add Properties", f, :properties %>
+            <%= link_to "Add Properties", '#', class: 'add-fields',data:  {id: Time.now.to_i, fields: Property.new} %>
+            <%= f.submit "Save", class: "btn btn-primary" %>
+          </div>
+
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
   </div>
 <% end %>
 <div class="border-red-500"></div>
